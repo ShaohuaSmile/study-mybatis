@@ -1,7 +1,9 @@
-package self.shaohua.study.mybatis.mapper;
+package self.shaohua.study.mapper;
 
 import org.apache.ibatis.annotations.Update;
-import self.shaohua.study.mybatis.model.Address;
+import self.shaohua.study.model.Address;
+
+import java.util.List;
 
 public interface AddressMapper {
     /**
@@ -54,4 +56,6 @@ public interface AddressMapper {
 
     @Update("update address set detail='' where address_id = #{addressId} ")
     int removeAddressByPrimaryKey(Long addressId);
+
+    List<Address> selectByCity(String city);
 }

@@ -8,10 +8,11 @@
         <setting name="cacheEnabled" value="false"/>
     </settings>
     <typeHandlers>
-        <typeHandler handler="self.shaohua.study.mybatis.handler.StringTypeHandler"/>
+        <typeHandler handler="self.shaohua.study.handler.StringTypeHandler"/>
     </typeHandlers>
     <plugins>
-        <plugin interceptor="self.shaohua.study.mybatis.interceptor.SelectCountInterceptor"></plugin>
+        <plugin interceptor="self.shaohua.study.interceptor.RollbackCountInterceptor"></plugin>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
     </plugins>
     <!--<typeAliases>-->
         <!--<package name="self.shaohua.study.mybatis"/>-->
@@ -30,6 +31,6 @@
 
     <mappers>
         <mapper resource="mapper/AddressMapper.xml"/>
-        <!--<package name="self.shaohua.study.mybatis.mapper"/>-->
+        <!--<package name="self.shaohua.study.mapper"/>-->
     </mappers>
 </configuration>

@@ -1,4 +1,4 @@
-package self.shaohua.study.mybatis.model;
+package self.shaohua.study.model;
 
 import java.util.Date;
 

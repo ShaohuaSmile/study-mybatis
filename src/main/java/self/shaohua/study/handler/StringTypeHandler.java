@@ -1,4 +1,4 @@
-package self.shaohua.study.mybatis.handler;
+package self.shaohua.study.handler;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
