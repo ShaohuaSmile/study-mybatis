@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--指定了驱动jar包的位置,我用的是mysql -->
+    <classPathEntry
+            location="D:\repository\mysql\mysql-connector-java\5.1.44/mysql-connector-java-5.1.44.jar" />
+    <context id="study-mybatis-generator" targetRuntime="MyBatis3">
+        <!-- 数据库连接信息 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.241.164:8306/mall_admin?useUnicode=true&amp;characterEncoding=utf-8"
+                        userId="ad" password="ad" />
+        <!--entity实体类-->
+        <javaModelGenerator targetPackage="self.shaohua.study.mybatis.model"
+                            targetProject="D:\workspace\study-mybatis\src\main\java" />
+        <!-- mybatis映射xml文件 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="D:\workspace\study-mybatis\src\main\resources" />
+        <!--mapper接口 -->
+        <javaClientGenerator targetPackage="self.shaohua.study.mybatis.mapper"
+                             targetProject="D:\workspace\study-mybatis\src\main\java" type="XMLMAPPER" />
+        <!--数据表-->
+        <table schema="Address" tableName="address"
+               enableSelectByExample="false"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               selectByExampleQueryId="false"/>
+    </context>
+</generatorConfiguration>
