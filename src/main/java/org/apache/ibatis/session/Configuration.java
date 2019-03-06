@@ -572,19 +572,8 @@ public class Configuration {
   }
 
   public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
-    executorType = executorType == null ? defaultExecutorType : executorType;
-    executorType = executorType == null ? ExecutorType.SIMPLE : executorType;
     Executor executor;
-    if (ExecutorType.BATCH == executorType) {
-      executor = new BatchExecutor(this, transaction);
-    } else if (ExecutorType.REUSE == executorType) {
-      executor = new ReuseExecutor(this, transaction);
-    } else {
-      executor = new SimpleExecutor(this, transaction);
-    }
-    if (cacheEnabled) {
-      executor = new CachingExecutor(executor);
-    }
+    executor = new SimpleExecutor(this, transaction);
     executor = (Executor) interceptorChain.pluginAll(executor);
     return executor;
   }
