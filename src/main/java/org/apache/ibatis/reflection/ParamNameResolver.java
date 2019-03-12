@@ -54,13 +54,15 @@ public class ParamNameResolver {
     final Annotation[][] paramAnnotations = method.getParameterAnnotations();
     final SortedMap<Integer, String> map = new TreeMap<>();
     int paramCount = paramAnnotations.length;
-    // get names from @Param annotations
+    //遍历注解（每个参数都会有一个Annotation[]占位，有@则Annotation[][有值]）
     for (int paramIndex = 0; paramIndex < paramCount; paramIndex++) {
+      //RowBounds Handler等参数跳过
       if (isSpecialParameter(paramTypes[paramIndex])) {
         // skip special parameters
         continue;
       }
       String name = null;
+      //从注解中找名字
       for (Annotation annotation : paramAnnotations[paramIndex]) {
         if (annotation instanceof Param) {
           hasParamAnnotation = true;
@@ -69,16 +71,16 @@ public class ParamNameResolver {
         }
       }
       if (name == null) {
-        // @Param was not specified.
+        // @Param 未指定，是开启使用method参数名称(默认开启)
         if (config.isUseActualParamName()) {
           name = getActualParamName(method, paramIndex);
         }
         if (name == null) {
-          // use the parameter index as the name ("0", "1", ...)
-          // gcode issue #71
+          //直接使用相对位置 0开始
           name = String.valueOf(map.size());
         }
       }
+      //位置，名称
       map.put(paramIndex, name);
     }
     names = Collections.unmodifiableSortedMap(map);
@@ -111,17 +113,18 @@ public class ParamNameResolver {
     final int paramCount = names.size();
     if (args == null || paramCount == 0) {
       return null;
+      //没有注解且只有一个参数，直接返回值
     } else if (!hasParamAnnotation && paramCount == 1) {
       return args[names.firstKey()];
     } else {
       final Map<String, Object> param = new ParamMap<>();
       int i = 0;
       for (Map.Entry<Integer, String> entry : names.entrySet()) {
+        //map <名称，参数值>
         param.put(entry.getValue(), args[entry.getKey()]);
-        // add generic param names (param1, param2, ...)
         final String genericParamName = GENERIC_NAME_PREFIX + String.valueOf(i + 1);
-        // ensure not to overwrite parameter named with @Param
         if (!names.containsValue(genericParamName)) {
+          //map <param + i+1，参数值>
           param.put(genericParamName, args[entry.getKey()]);
         }
         i++;

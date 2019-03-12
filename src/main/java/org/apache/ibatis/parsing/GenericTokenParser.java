@@ -30,7 +30,7 @@ public class GenericTokenParser {
     this.handler = handler;
   }
 
-  public String parse(String text) {
+  public String  parse(String text) {
     if (text == null || text.isEmpty()) {
       return "";
     }
